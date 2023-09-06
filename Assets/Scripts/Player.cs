@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FPSController : MonoBehaviour
+public class Player : DamageableObject
 {
     public float speed = 12.0f;
     public float sensitivity = 5.0f;
@@ -9,23 +9,27 @@ public class FPSController : MonoBehaviour
     private float rotationY = 0.0f;
     private float rotationX = 0.0f;
     private Vector3 velocity;
+    public WeaponController weaponController;
 
     private float gravity = -9.81f;
     private float jumpForce = 3.0f;
+    private float shootDistance = 100.0f;
 
     void Awake()
     {
         controller = GetComponent<CharacterController>();
+        weaponController = GetComponent<WeaponController>();
     }
 
-    void Start()
+    override public void Start()
     {
+        base.Start();
         Cursor.lockState = CursorLockMode.Locked; // Lock the cursor to the game window
+        weaponController.EquipWeapon(0);
     }
 
     void Update()
     {
-        Debug.Log(controller.isGrounded);
         Look();
         Move();
         Fall();
@@ -47,8 +51,9 @@ public class FPSController : MonoBehaviour
         rotationY -= mouseY;
         rotationY = Mathf.Clamp(rotationY, -60.0f, 60.0f); // Clamp vertical rotation to avoid flipping
 
-        // Rotate the camera vertically
+        // Rotate the camera and weapon vertically
         Camera.main.transform.localRotation = Quaternion.Euler(rotationY, 0.0f, 0.0f);
+        weaponController.weapon.transform.localRotation = Quaternion.Euler(rotationY, 0.0f, 0.0f);
     }
 
     void Move()
@@ -63,8 +68,6 @@ public class FPSController : MonoBehaviour
         {
             if (Input.GetButtonDown("Jump"))
             {
-                Debug.Log("Jump");
-                // Apply jump force
                 velocity.y = Mathf.Sqrt(jumpForce * -2.0f * gravity);
             }
         }
@@ -78,17 +81,19 @@ public class FPSController : MonoBehaviour
 
     void Aim()
     {
+        // Cast Ray from gunMuzzzle to mouse position
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Vector3 target = ray.GetPoint(100.0f);
-        Debug.DrawLine(ray.origin, target, Color.red);
-        Shoot();
+        Ray ray2 = new Ray(weaponController.weapon.gunMuzzleTransform.position, weaponController.weapon.gunMuzzleTransform.forward);
+        Debug.DrawRay(ray.origin, ray.direction * shootDistance, Color.red);
+        Debug.DrawRay(ray2.origin, ray2.direction * shootDistance, Color.red);
+        Shoot(ray);
     }
 
-    void Shoot()
+    void Shoot(Ray ray)
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("Shoot");
+            weaponController.weapon.Shoot();
         }
     }
 }
