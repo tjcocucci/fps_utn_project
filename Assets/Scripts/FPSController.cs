@@ -30,6 +30,7 @@ public class FPSController : MonoBehaviour
         Move();
         Fall();
         Jump();
+        Aim();
     }
 
     void Look()
@@ -73,5 +74,21 @@ public class FPSController : MonoBehaviour
     {
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+    }
+
+    void Aim()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Vector3 target = ray.GetPoint(100.0f);
+        Debug.DrawLine(ray.origin, target, Color.red);
+        Shoot();
+    }
+
+    void Shoot()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Debug.Log("Shoot");
+        }
     }
 }
