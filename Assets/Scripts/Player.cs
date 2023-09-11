@@ -56,7 +56,6 @@ public class Player : DamageableObject
 
         // Rotate the camera and weapon vertically
         Camera.main.transform.localRotation = Quaternion.Euler(rotationY, 0.0f, 0.0f);
-        weaponController.weapon.transform.localRotation = Quaternion.Euler(rotationY, 0.0f, 0.0f);
     }
 
     void Move()
@@ -80,9 +79,11 @@ public class Player : DamageableObject
     {
         if (controller.isGrounded)
         {
+            animator.SetBool("jump", false);
             if (Input.GetButtonDown("Jump"))
             {
                 velocity.y = Mathf.Sqrt(jumpForce * -2.0f * gravity);
+                animator.SetBool("jump", true);
             }
         }
     }
