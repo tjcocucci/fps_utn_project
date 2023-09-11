@@ -21,6 +21,7 @@
 
 # Visual Studio cache directory
 .vs/
+.vscode
 
 # Gradle cache directory
 .gradle/
@@ -41,7 +42,15 @@ ExportedObj/
 *.pdb
 *.mdb
 *.opendb
-*.VC.db
+*.app
+.idea/
+*.VC.*
+.DS_Store
+*~
+*.swp
+
+*.log
+*.pyc
 
 # Unity3D generated meta files
 *.pidb.meta
@@ -58,7 +67,6 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
-.vscode
 .fake
 
 # Compressed files
