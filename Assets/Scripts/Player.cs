@@ -6,9 +6,11 @@ public class Player : DamageableObject
     public float sensitivity = 5.0f;
     public Transform playerBody;
     public CharacterController controller;
+    private Animator animator;
     private float rotationY = 0.0f;
     private float rotationX = 0.0f;
     private Vector3 velocity;
+    private Vector3 moveCurrent;
     public WeaponController weaponController;
 
     private float gravity = -9.81f;
@@ -19,9 +21,10 @@ public class Player : DamageableObject
     {
         controller = GetComponent<CharacterController>();
         weaponController = GetComponent<WeaponController>();
+        animator = GetComponent<Animator>();
     }
 
-    override public void Start()
+    public override void Start()
     {
         base.Start();
         Cursor.lockState = CursorLockMode.Locked; // Lock the cursor to the game window
@@ -58,8 +61,19 @@ public class Player : DamageableObject
 
     void Move()
     {
-        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        controller.Move(move * Time.deltaTime * speed);
+        Vector3 moveTarget = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            moveTarget *= 2.0f;
+        }
+
+        animator.SetFloat("forwardSpeed", moveTarget.z);
+        animator.SetFloat("strafeSpeed", moveTarget.x);
+
+        moveTarget = transform.TransformDirection(moveTarget);
+        controller.Move(moveTarget * Time.deltaTime * speed);
+
+        Debug.Log(moveTarget.x + " " + moveTarget.z);
     }
 
     void Jump()
@@ -83,7 +97,10 @@ public class Player : DamageableObject
     {
         // Cast Ray from gunMuzzzle to mouse position
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Ray ray2 = new Ray(weaponController.weapon.gunMuzzleTransform.position, weaponController.weapon.gunMuzzleTransform.forward);
+        Ray ray2 = new Ray(
+            weaponController.weapon.gunMuzzleTransform.position,
+            weaponController.weapon.gunMuzzleTransform.forward
+        );
         Debug.DrawRay(ray.origin, ray.direction * shootDistance, Color.red);
         Debug.DrawRay(ray2.origin, ray2.direction * shootDistance, Color.red);
         Shoot(ray);

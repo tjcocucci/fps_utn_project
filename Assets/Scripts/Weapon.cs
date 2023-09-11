@@ -8,6 +8,7 @@ public class Weapon : MonoBehaviour
     public Transform gunMuzzleTransform;
     public float damage = 10;
     public float timeBetweenShots = 0.5f;
+    public LayerMask layers;
     private float timeForNextShot;
 
     // Start is called before the first frame update
@@ -21,15 +22,18 @@ public class Weapon : MonoBehaviour
         if (Time.time > timeForNextShot)
         {
             // Raycast shoot
-            RaycastHit hit;
-            if (Physics.Raycast(gunMuzzleTransform.position, gunMuzzleTransform.forward, out hit))
+            if (
+                Physics.Raycast(
+                    gunMuzzleTransform.position,
+                    gunMuzzleTransform.forward,
+                    out RaycastHit hit,
+                    layers
+                )
+            )
             {
                 Debug.Log(hit.transform.name);
                 DamageableObject damageableObject = hit.transform.GetComponent<DamageableObject>();
-                if (damageableObject != null)
-                {
-                    damageableObject.TakeDamage(damage);
-                }
+                damageableObject?.TakeDamage(damage);
             }
             timeForNextShot = Time.time + timeBetweenShots;
         }
