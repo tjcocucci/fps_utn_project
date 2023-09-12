@@ -16,6 +16,11 @@ public class WeaponController : MonoBehaviour
             Destroy(weapon.gameObject);
         }
         weaponIndex = index;
-        weapon = Instantiate(weaponList[weaponIndex], weaponHoldTransform.position, weaponHoldTransform.rotation, weaponHoldTransform);
+        weapon = Instantiate(
+            weaponList[weaponIndex],
+            weaponHoldTransform.position,
+            weaponHoldTransform.rotation,
+            weaponHoldTransform
+        );
     }
 }

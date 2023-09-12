@@ -9,7 +9,6 @@ public enum EnemyType
     hard
 }
 
-[RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(WeaponController))]
 public class Enemy : DamageableObject
 {
@@ -19,12 +18,19 @@ public class Enemy : DamageableObject
     public float speed = 2;
     public float damage = 10;
     public WeaponController weaponController;
+    public CharacterController characterController;
+    private Animator animator;
     public int weaponIndex = 0;
     public EnemyType type;
     private bool movementEnabled;
     private int direction = 1;
     private bool disableScheduled = false;
     private bool directionSwitchScheduled = false;
+    private float gravity = -9.81f;
+    private Vector3 velocity;
+
+    public SkinnedMeshRenderer surfaceRenderer;
+    public SkinnedMeshRenderer jointsRenderer;
 
     // Start is called before the first frame update
     public override void Start()
@@ -32,6 +38,8 @@ public class Enemy : DamageableObject
         movementEnabled = true;
         playerTransform = FindObjectOfType<Player>().transform;
         weaponController = GetComponent<WeaponController>();
+        characterController = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
         weaponController.EquipWeapon(weaponIndex);
         base.Start();
     }
@@ -42,16 +50,19 @@ public class Enemy : DamageableObject
         switch (type)
         {
             case EnemyType.easy:
-                GetComponent<Renderer>().material.SetColor("_Color", Color.green);
+                surfaceRenderer.material.SetColor("_Color", Color.green);
+                jointsRenderer.material.SetColor("_Color", Color.green * 0.5f);
                 break;
             case EnemyType.medium:
-                GetComponent<Renderer>().material.SetColor("_Color", Color.yellow);
+                surfaceRenderer.material.SetColor("_Color", Color.yellow);
+                jointsRenderer.material.SetColor("_Color", Color.yellow * 0.5f);
                 break;
             case EnemyType.hard:
-                GetComponent<Renderer>().material.SetColor("_Color", Color.red);
+                surfaceRenderer.material.SetColor("_Color", Color.red);
+                jointsRenderer.material.SetColor("_Color", Color.red * 0.5f);
                 break;
         }
-    }   
+    }
 
     void Update()
     {
@@ -62,11 +73,26 @@ public class Enemy : DamageableObject
             if (distanceToPlayer > distanceToPlayerThreshold && movementEnabled)
             {
                 Move();
+                animator.SetFloat("forwardSpeed", 1.5f);
+            }
+            else
+            {
+                animator.SetFloat("forwardSpeed", 0);
             }
 
             transform.LookAt(playerTransform);
             Shoot();
         }
+        if (!characterController.isGrounded)
+        {
+            Fall();
+        }
+    }
+
+    void Fall()
+    {
+        velocity.y += gravity * Time.deltaTime;
+        characterController.Move(velocity * Time.deltaTime);
     }
 
     private void DisableMovement()

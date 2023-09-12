@@ -16,6 +16,9 @@ public class Player : DamageableObject
     private float gravity = -9.81f;
     private float jumpForce = 3.0f;
     private float shootDistance = 100.0f;
+    private bool won = false;
+    public bool isAlive = true;
+    public int weaponIndex;
 
     void Awake()
     {
@@ -29,15 +32,39 @@ public class Player : DamageableObject
         base.Start();
         Cursor.lockState = CursorLockMode.Locked; // Lock the cursor to the game window
         weaponController.EquipWeapon(0);
+        LevelManager.Instance.OnWin += OnWin;
+        OnObjectDied += OnPlayerDeath;
+    }
+
+    void OnPlayerDeath()
+    {
+        isAlive = false;
+        Debug.Log("You died!");
     }
 
     void Update()
     {
         Look();
         Move();
+        ChangeWeapon();
         Fall();
         Jump();
         Aim();
+    }
+
+    public void OnWin()
+    {
+        won = true;
+    }
+
+    public void resetPlayer()
+    {
+        isAlive = true;
+        won = false;
+        health = totalHealth;
+        transform.position = Vector3.zero;
+        transform.rotation = Quaternion.identity;
+        weaponController.EquipWeapon(0);
     }
 
     void Look()
@@ -112,6 +139,20 @@ public class Player : DamageableObject
         if (Input.GetMouseButtonDown(0))
         {
             weaponController.weapon.Shoot();
+        }
+    }
+
+    void ChangeWeapon()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1) && weaponIndex != 0)
+        {
+            weaponIndex = 0;
+            weaponController.EquipWeapon(0);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2) && weaponIndex != 1)
+        {
+            weaponIndex = 1;
+            weaponController.EquipWeapon(1);
         }
     }
 }
