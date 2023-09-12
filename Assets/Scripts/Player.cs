@@ -16,9 +16,11 @@ public class Player : DamageableObject
     private float gravity = -9.81f;
     private float jumpForce = 3.0f;
     private float shootDistance = 100.0f;
-    private bool won = false;
+    private bool won;
     public bool isAlive = true;
     public int weaponIndex;
+    public Crosshairs crosshairsPrefab;
+    Crosshairs crosshairs;
 
     void Awake()
     {
@@ -30,9 +32,18 @@ public class Player : DamageableObject
     public override void Start()
     {
         base.Start();
+        won = false;
         Cursor.lockState = CursorLockMode.Locked; // Lock the cursor to the game window
         weaponController.EquipWeapon(0);
-        LevelManager.Instance.OnWin += OnWin;
+        crosshairs = Instantiate(crosshairsPrefab, transform.position, crosshairsPrefab.transform.rotation);
+        
+        if (LevelManager.Instance != null)
+        {
+            LevelManager.Instance.OnWin += OnWin;
+        } else
+        {
+            Debug.Log("LevelManager is null");
+        }
         OnObjectDied += OnPlayerDeath;
     }
 
@@ -98,8 +109,6 @@ public class Player : DamageableObject
 
         moveTarget = transform.TransformDirection(moveTarget);
         controller.Move(moveTarget * Time.deltaTime * speed);
-
-        Debug.Log(moveTarget.x + " " + moveTarget.z);
     }
 
     void Jump()
@@ -130,7 +139,11 @@ public class Player : DamageableObject
             weaponController.weapon.gunMuzzleTransform.forward
         );
         Debug.DrawRay(ray.origin, ray.direction * shootDistance, Color.red);
-        Debug.DrawRay(ray2.origin, ray2.direction * shootDistance, Color.red);
+        weaponController.weaponHoldTransform.LookAt(ray.GetPoint(shootDistance));
+        // Debug.DrawRay(ray2.origin, ray2.direction * shootDistance, Color.red);
+
+        crosshairs.transform.position = ray.GetPoint(10);
+        crosshairs.transform.LookAt(ray.GetPoint(20));
         Shoot(ray);
     }
 

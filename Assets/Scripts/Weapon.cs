@@ -11,7 +11,6 @@ public class Weapon : MonoBehaviour
     public LayerMask layers;
     private float timeForNextShot;
 
-    // Start is called before the first frame update
     public void Start()
     {
         timeForNextShot = Time.time;
