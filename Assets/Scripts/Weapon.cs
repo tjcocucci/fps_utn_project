@@ -6,13 +6,16 @@ public class Weapon : MonoBehaviour
 {
     public string weaponName;
     public Transform gunMuzzleTransform;
+    public Bullet bulletPrefab;
     public float damage = 10;
     public float timeBetweenShots = 0.5f;
-    public LayerMask layers;
     private float timeForNextShot;
+    public Transform bulletContarinerTransform;
 
+    // Start is called before the first frame update
     public void Start()
     {
+        bulletContarinerTransform = GameObject.Find("BulletContainer").transform;
         timeForNextShot = Time.time;
     }
 
@@ -20,20 +23,13 @@ public class Weapon : MonoBehaviour
     {
         if (Time.time > timeForNextShot)
         {
-            // Raycast shoot
-            if (
-                Physics.Raycast(
-                    gunMuzzleTransform.position,
-                    gunMuzzleTransform.forward,
-                    out RaycastHit hit,
-                    layers
-                )
-            )
-            {
-                Debug.Log(hit.transform.name);
-                DamageableObject damageableObject = hit.transform.GetComponent<DamageableObject>();
-                damageableObject?.TakeDamage(damage);
-            }
+            Bullet bullet = Instantiate(
+                bulletPrefab,
+                gunMuzzleTransform.position,
+                gunMuzzleTransform.rotation,
+                bulletContarinerTransform
+            );
+            bullet.damage = damage;
             timeForNextShot = Time.time + timeBetweenShots;
         }
     }
