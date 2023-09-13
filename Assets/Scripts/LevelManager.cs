@@ -10,9 +10,11 @@ public class LevelManager : MonoBehaviour
     public int currentLevelIndex;
     public Level currentLevel;
     public AudioSource startGameSound;
+    public Transform gameContainer;
 
     [HideInInspector]
     public Player player;
+
     [HideInInspector]
     private EnemySpawner enemySpawner;
 
@@ -40,7 +42,12 @@ public class LevelManager : MonoBehaviour
         {
             level.gameObject.SetActive(false);
         }
-        enemySpawner = Instantiate(enemySpawnerPrefab, Vector3.zero, Quaternion.identity);
+        enemySpawner = Instantiate(
+            enemySpawnerPrefab,
+            Vector3.zero,
+            Quaternion.identity,
+            gameContainer
+        );
     }
 
     void OnPlayerDeath()
@@ -51,9 +58,7 @@ public class LevelManager : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
-    {
-    }
+    void Start() { }
 
     public void LoadLevel(int levelIndex)
     {
@@ -80,7 +85,8 @@ public class LevelManager : MonoBehaviour
             player = Instantiate(
                 playerPrefab,
                 levels[levelIndex].playerSpawnPosition,
-                Quaternion.identity
+                Quaternion.identity,
+                gameContainer
             );
             player.OnObjectDied += OnPlayerDeath;
         }
@@ -100,14 +106,15 @@ public class LevelManager : MonoBehaviour
         if (levelIndex == 0)
         {
             startGameSound.Play();
-            // UIOverlay.Instance.ShowInstructions();
+            UIOverlay.Instance.ShowInstructions();
             StartCoroutine(enableSpawnerAfterDelay(3));
-        } else {
+        }
+        else
+        {
             enemySpawner.Enable();
         }
 
-        // UIOverlay.Instance.StartUI();
-
+        UIOverlay.Instance.StartUI();
     }
 
     IEnumerator enableSpawnerAfterDelay(float delay)
@@ -129,5 +136,4 @@ public class LevelManager : MonoBehaviour
     {
         LoadLevel(currentLevelIndex + 1);
     }
-
 }

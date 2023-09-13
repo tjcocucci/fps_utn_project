@@ -3,19 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+[RequireComponent(typeof(AudioSource))]
 public class Banner : MonoBehaviour
 {
     public TextMeshProUGUI bannerText;
-    public Player player;
-    public AudioSource buttonClickSound;
     public GameObject gameContainer;
     public GameObject menuGameObject;
     public GameObject playButtonGameObject;
     public GameObject goToMenuButtonGameObject;
+    private AudioSource audioSource;
+    public AudioClip buttonClickClip;
 
+
+
+    public void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+    
     public void ShowBanner()
     {
-        LeanTween.moveLocalY(gameObject, 0, 0.5f).setEaseOutBounce();
+        LeanTween.moveLocalY(gameObject, 50, 0.5f).setEaseOutBounce();
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     public void SetText(string text)
@@ -45,19 +55,21 @@ public class Banner : MonoBehaviour
 
     public void HideBanner()
     {
-        LeanTween.moveLocalY(gameObject, 400, 0.5f).setEaseInBounce();
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        LeanTween.moveLocalY(gameObject, 350, 0.5f).setEaseInBounce();
     }
 
     public void OnPlayButtonClick()
     {
-        buttonClickSound.Play();
+        audioSource.PlayOneShot(buttonClickClip);
         Invoke("SwitchToGame", 0.5f);
         HideBanner();
     }
 
     public void OnBackToMenuButtonClick()
     {
-        buttonClickSound.Play();
+        audioSource.PlayOneShot(buttonClickClip);
         Invoke("SwitchToMenu", 0.5f);
         HideBanner();
     }

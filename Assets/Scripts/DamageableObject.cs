@@ -13,7 +13,7 @@ public class DamageableObject : MonoBehaviour
         return health > 0;
     }
 
-    public void TakeDamage(float damage)
+    public virtual void TakeDamage(float damage)
     {
         health -= damage;
         if (health <= 0)
@@ -22,7 +22,6 @@ public class DamageableObject : MonoBehaviour
             {
                 OnObjectDied();
             }
-            Destroy(gameObject);
         }
     }
 

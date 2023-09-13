@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 
 public enum EnemyType
 {
@@ -36,7 +37,7 @@ public class Enemy : DamageableObject
     public override void Start()
     {
         movementEnabled = true;
-        playerTransform = FindObjectOfType<Player>().transform;
+        playerTransform = GameObject.FindGameObjectWithTag("enemyAim").transform;
         weaponController = GetComponent<WeaponController>();
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
@@ -64,6 +65,15 @@ public class Enemy : DamageableObject
         }
     }
 
+    public override void TakeDamage(float damage)
+    {
+        base.TakeDamage(damage);
+        if (!IsAlive())
+        {
+            Destroy(gameObject);
+        }
+    }
+
     void Update()
     {
         if (playerTransform != null)
@@ -80,13 +90,18 @@ public class Enemy : DamageableObject
                 animator.SetFloat("forwardSpeed", 0);
             }
 
-            transform.LookAt(playerTransform);
+            Aim();
             Shoot();
         }
         if (!characterController.isGrounded)
         {
             Fall();
         }
+    }
+
+    void Aim()
+    {
+        weaponController.weaponHoldTransform.LookAt(playerTransform);
     }
 
     void Fall()

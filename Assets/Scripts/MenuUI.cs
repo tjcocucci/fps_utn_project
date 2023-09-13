@@ -2,15 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class MenuUI : MonoBehaviour
 {
     public GameObject gameContainer;
     public GameObject mainMenuItems;
-    public AudioSource buttonClickSound;
+    public AudioClip buttonClickSound;
+    private AudioSource audioSource;
 
+    public void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
+    public void OnEnable()
+    {
+        gameContainer.SetActive(false);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
     public void OnPlayButtonClicked()
     {
-        buttonClickSound.Play();
+        audioSource.PlayOneShot(buttonClickSound);
         Invoke("SwitchToGame", 0.5f);
     }
 
@@ -23,7 +36,7 @@ public class MenuUI : MonoBehaviour
 
     public void OnQuitButtonClicked()
     {
-        buttonClickSound.Play();
+        audioSource.PlayOneShot(buttonClickSound);
         Invoke("QuitGame", 0.5f);
     }
 

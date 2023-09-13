@@ -251,7 +251,7 @@ MonoBehaviour:
     m_Bits: 64
   playerCollisionMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   obstacleCollisionMask:
     serializedVersion: 2
     m_Bits: 128

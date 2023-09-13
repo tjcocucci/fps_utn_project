@@ -35,12 +35,18 @@ public class Player : DamageableObject
         won = false;
         Cursor.lockState = CursorLockMode.Locked; // Lock the cursor to the game window
         weaponController.EquipWeapon(0);
-        crosshairs = Instantiate(crosshairsPrefab, transform.position, crosshairsPrefab.transform.rotation);
-        
+        crosshairs = Instantiate(
+            crosshairsPrefab,
+            transform.position,
+            crosshairsPrefab.transform.rotation,
+            transform
+        );
+
         if (LevelManager.Instance != null)
         {
             LevelManager.Instance.OnWin += OnWin;
-        } else
+        }
+        else
         {
             Debug.Log("LevelManager is null");
         }
@@ -55,17 +61,21 @@ public class Player : DamageableObject
 
     void Update()
     {
-        Look();
-        Move();
-        ChangeWeapon();
-        Fall();
-        Jump();
-        Aim();
+        if (isAlive && !won)
+        {
+            Look();
+            Move();
+            ChangeWeapon();
+            Fall();
+            Jump();
+            Aim();
+        }
     }
 
     public void OnWin()
     {
         won = true;
+        Debug.Log("You won!");
     }
 
     public void resetPlayer()

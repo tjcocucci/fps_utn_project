@@ -4,17 +4,19 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+[RequireComponent(typeof(AudioSource))]
 public class UIOverlay : MonoBehaviour
 {
     private Player player;
 
     public Banner banner;
     private float healthPercent;
-    public Text UIText;
+    public TMPro.TextMeshProUGUI UIText;
     private LevelManager levelManager;
     private bool pauseUpdates;
-    public AudioSource winSound;
-    public AudioSource loseSound;
+    public AudioClip winSound;
+    public AudioClip loseSound;
+    private AudioSource audioSource;
 
     private static UIOverlay _instance;
     public static UIOverlay Instance
@@ -36,6 +38,7 @@ public class UIOverlay : MonoBehaviour
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         levelManager = LevelManager.Instance;
         levelManager.OnWin += OnWin;
     }
@@ -91,7 +94,7 @@ public class UIOverlay : MonoBehaviour
 
     public void OnPlayerDeath()
     {
-        loseSound.Play();
+        audioSource.PlayOneShot(loseSound);
         pauseUpdates = true;
         banner.SetText("You died!");
         banner.ShowBanner();
@@ -99,7 +102,7 @@ public class UIOverlay : MonoBehaviour
 
     public void OnWin()
     {
-        winSound.Play();
+        audioSource.PlayOneShot(winSound);
         pauseUpdates = true;
         banner.SetText("You win!");
         banner.ShowBanner();

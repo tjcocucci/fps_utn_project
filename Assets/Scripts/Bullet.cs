@@ -53,6 +53,7 @@ public class Bullet : MonoBehaviour
                 damageableObject.TakeDamage(damage);
             }
             Destroy(gameObject);
+            Debug.Log("Hit " + hit.collider.gameObject.name);
         }
 
         if ( // Obstacle collision

@@ -29,6 +29,7 @@ public class EnemySpawner : MonoBehaviour
     public void  Start ()
     {
         enemyContainerTransform = new GameObject("EnemyContainer").transform;
+        enemyContainerTransform.parent = transform;
         enemyHeight = enemyPrefab.GetComponent<CharacterController>().height;
     }
 
