@@ -10,6 +10,7 @@ public class MapGenerator : MonoBehaviour
 {
     public Transform tilePrefab;
     public Transform wallPrefab;
+    public Transform spawnPlanePrefab;
     public Transform navMeshSurfaceTransform;
     private Transform mapHolder;
     public Queue<Coord> shuffledEmptyTiles;
@@ -178,6 +179,17 @@ public class MapGenerator : MonoBehaviour
             currentMap.mapSizeY,
             1
         );
+        Transform spawnPlane = Instantiate(spawnPlanePrefab, Vector3.zero, Quaternion.identity);
+
+        spawnPlane.localScale = new Vector3(
+            currentMap.mapSizeX/10,
+            1,
+            currentMap.mapSizeY/10
+        );
+        spawnPlane.name = "spawnPlane";
+        spawnPlane.parent = mapHolder;
+        currentMap.spawnPlane = spawnPlane.gameObject;
+    
     }
 
     bool MapIsFullyAccesible(WallOcupation[,] occupiedWalls)
@@ -417,13 +429,10 @@ public class Map
 
     [Min(1)]
     public float tileSize;
-    public Coord mapCenter
-    {
-        get { return new Coord(sizeX / 2, sizeY / 2); }
-    }
 
     [Range(0, 1)]
     public float wallThicknessPercent;
+    public GameObject spawnPlane;
 
     public float mapSizeX
     {

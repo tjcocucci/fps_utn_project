@@ -14,11 +14,14 @@ public class Level
     public int enemyWeaponIndex;
     public float minSpawnDistanceToPlayer;
     public Vector3 playerSpawnPosition;
-    public GameObject spawnPlane;
 
     [HideInInspector]
     public Bounds spawnBounds;
 
     public Map map;
+    public Bounds GetSpawnBounds()
+    {
+        return map.spawnPlane.GetComponent<MeshRenderer>().bounds;
+    }
 
 }
