@@ -10,17 +10,11 @@ public class MapGenerator : MonoBehaviour
 {
     public Transform tilePrefab;
     public Transform wallPrefab;
-    public Transform spawnPlanePrefab;
     public Transform navMeshSurfaceTransform;
     private Transform mapHolder;
     public Queue<Coord> shuffledEmptyTiles;
     Map currentMap;
     Transform[,] tileMap;
-
-    void Start()
-    {
-        // FindObjectOfType<Spawner>().OnNextWaveStart += GenerateNewLevel;
-    }
 
     public void GenerateMap(Map map)
     {
@@ -179,17 +173,18 @@ public class MapGenerator : MonoBehaviour
             currentMap.mapSizeY,
             1
         );
-        Transform spawnPlane = Instantiate(spawnPlanePrefab, Vector3.zero, Quaternion.identity);
 
-        spawnPlane.localScale = new Vector3(
-            currentMap.mapSizeX/10,
-            1,
-            currentMap.mapSizeY/10
-        );
-        spawnPlane.name = "spawnPlane";
-        spawnPlane.parent = mapHolder;
-        currentMap.spawnPlane = spawnPlane.gameObject;
-    
+        // Transform spawnPlane = Instantiate(spawnPlanePrefab, Vector3.zero, Quaternion.identity);
+
+        // spawnPlane.localScale = new Vector3(
+        //     currentMap.mapSizeX/10,
+        //     1,
+        //     currentMap.mapSizeY/10
+        // );
+        // spawnPlane.name = "spawnPlane";
+        // spawnPlane.parent = mapHolder;
+        // currentMap.spawnPlane = spawnPlane.gameObject;
+        currentMap.tileMap = tileMap;
     }
 
     bool MapIsFullyAccesible(WallOcupation[,] occupiedWalls)
@@ -393,7 +388,6 @@ public class MapGenerator : MonoBehaviour
             west = _west;
         }
     }
-
 }
 
 [System.Serializable]
@@ -432,7 +426,7 @@ public class Map
 
     [Range(0, 1)]
     public float wallThicknessPercent;
-    public GameObject spawnPlane;
+    public Transform[,] tileMap;
 
     public float mapSizeX
     {

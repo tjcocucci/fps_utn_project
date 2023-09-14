@@ -19,9 +19,9 @@ public class Level
     public Bounds spawnBounds;
 
     public Map map;
-    public Bounds GetSpawnBounds()
+    public Transform[,] GetSpawnPositions()
     {
-        return map.spawnPlane.GetComponent<MeshRenderer>().bounds;
+        return map.tileMap;
     }
 
 }

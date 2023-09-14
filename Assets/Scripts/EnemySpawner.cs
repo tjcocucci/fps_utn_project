@@ -22,7 +22,7 @@ public class EnemySpawner : MonoBehaviour
     private float enemyHealth;
     private int enemyWeaponIndex;
     public EnemyType type;
-    public Bounds spawnBounds;
+    private Transform[,] tileMap;
     private float timeForNextSpawn;
 
     public void  Start ()
@@ -42,7 +42,7 @@ public class EnemySpawner : MonoBehaviour
         timeBetweenSpawns = level.timeBetweenSpawns;
         timeForNextSpawn = Time.time + timeBetweenSpawns;
         minSpawnDistanceToPlayer = level.minSpawnDistanceToPlayer;
-        spawnBounds = level.GetSpawnBounds();
+        tileMap = level.GetSpawnPositions();
         
         enemySpeed = level.enemySpeed;
         type = level.enemyType;
@@ -87,11 +87,11 @@ public class EnemySpawner : MonoBehaviour
         bool foundUsableSpawnPosition = false;
         for (int i = 0; i < 500; i++)
         {
-            spawnPosition = new Vector3(
-                Random.Range(spawnBounds.min.x, spawnBounds.max.x),
-                enemyHeight * 4,
-                Random.Range(spawnBounds.min.z, spawnBounds.max.z)
-            );
+            spawnPosition = tileMap[
+                Random.Range(0, tileMap.GetLength(0)),
+                Random.Range(0, tileMap.GetLength(1))
+            ].position;
+            spawnPosition.y = enemyHeight;
             if (
                 playerTransform != null
                 && Vector3.Distance(spawnPosition, playerTransform.position)
