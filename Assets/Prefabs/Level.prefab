@@ -723,7 +723,6 @@ MonoBehaviour:
   enemyWeaponIndex: 0
   minSpawnDistanceToPlayer: 2
   playerSpawnPosition: {x: 0, y: 0, z: 0}
-  map: {fileID: 2639714594536023186}
   spawnPlane: {fileID: 3239839525915465091}
   spawnBounds:
     m_Center: {x: 0, y: 0, z: 0}

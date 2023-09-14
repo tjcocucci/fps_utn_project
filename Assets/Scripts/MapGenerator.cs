@@ -8,28 +8,22 @@ using UnityEngine.AI;
 
 public class MapGenerator : MonoBehaviour
 {
-    public Map[] maps;
-
-    public int mapIndex = 0;
-
     public Transform tilePrefab;
     public Transform wallPrefab;
     public Transform navMeshSurfaceTransform;
     private Transform mapHolder;
     public Queue<Coord> shuffledEmptyTiles;
-
     Map currentMap;
     Transform[,] tileMap;
 
     void Start()
     {
-        GenerateMap();
         // FindObjectOfType<Spawner>().OnNextWaveStart += GenerateNewLevel;
     }
 
-    public void GenerateMap()
+    public void GenerateMap(Map map)
     {
-        currentMap = maps[mapIndex];
+        currentMap = map;
         tileMap = new Transform[currentMap.sizeX, currentMap.sizeY];
 
         System.Random prng = new System.Random(currentMap.seed);
@@ -165,20 +159,25 @@ public class MapGenerator : MonoBehaviour
         }
 
         // Place peripheral horizontal walls
-        for (int i = 0; i < currentMap.sizeX; i++) {
+        for (int i = 0; i < currentMap.sizeX; i++)
+        {
             PlaceWallPiece(new WallLocation(i, -1, true));
             PlaceWallPiece(new WallLocation(i, currentMap.sizeY - 1, true));
         }
 
         // Place peripheral vertical walls
-        for (int i = 0; i < currentMap.sizeY; i++) {
+        for (int i = 0; i < currentMap.sizeY; i++)
+        {
             PlaceWallPiece(new WallLocation(-1, i, false));
             PlaceWallPiece(new WallLocation(currentMap.sizeX - 1, i, false));
         }
 
         navMeshSurfaceTransform.position = Vector3.zero - 0.01f * Vector3.up;
-        navMeshSurfaceTransform.localScale = new Vector3(currentMap.mapSizeX, currentMap.mapSizeY, 1);
-
+        navMeshSurfaceTransform.localScale = new Vector3(
+            currentMap.mapSizeX,
+            currentMap.mapSizeY,
+            1
+        );
     }
 
     bool MapIsFullyAccesible(WallOcupation[,] occupiedWalls)
@@ -383,47 +382,55 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
-    public void GenerateNewLevel(int i)
+}
+
+[System.Serializable]
+public struct Coord
+{
+    public int x;
+    public int y;
+
+    public Coord(int _x, int _y)
     {
-        mapIndex = i;
-        GenerateMap();
+        x = _x;
+        y = _y;
+    }
+}
+
+[System.Serializable]
+public class Map
+{
+    [Min(2)]
+    public int sizeX = 10;
+
+    [Min(2)]
+    public int sizeY = 10;
+
+    [Range(0, 1)]
+    public float wallDensity;
+    public int seed = 1234;
+
+    public float wallHeight;
+
+    public Color foregroundColor;
+    public Color backgroundColor;
+
+    [Min(1)]
+    public float tileSize;
+    public Coord mapCenter
+    {
+        get { return new Coord(sizeX / 2, sizeY / 2); }
     }
 
-    [System.Serializable]
-    public class Map
+    [Range(0, 1)]
+    public float wallThicknessPercent;
+
+    public float mapSizeX
     {
-        [Min(2)]
-        public int sizeX = 10;
-
-        [Min(2)]
-        public int sizeY = 10;
-
-        [Range(0, 1)]
-        public float wallDensity;
-        public int seed = 1234;
-
-        public float wallHeight;
-
-        public Color foregroundColor;
-        public Color backgroundColor;
-
-        [Min(1)]
-        public float tileSize;
-        public Coord mapCenter
-        {
-            get { return new Coord(sizeX / 2, sizeY / 2); }
-        }
-
-        [Range(0, 1)]
-        public float wallThicknessPercent;
-
-        public float mapSizeX
-        {
-            get { return tileSize * sizeX; }
-        }
-        public float mapSizeY
-        {
-            get { return tileSize * sizeY; }
-        }
+        get { return tileSize * sizeX; }
+    }
+    public float mapSizeY
+    {
+        get { return tileSize * sizeY; }
     }
 }

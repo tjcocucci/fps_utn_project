@@ -8,9 +8,9 @@ public class LevelManager : MonoBehaviour
     public EnemySpawner enemySpawnerPrefab;
     public Level[] levels;
     public int currentLevelIndex;
-    public Level currentLevel;
     public AudioSource startGameSound;
     public Transform gameContainer;
+    public MapGenerator mapGenerator;
 
     [HideInInspector]
     public Player player;
@@ -38,10 +38,6 @@ public class LevelManager : MonoBehaviour
         {
             _instance = this;
         }
-        foreach (Level level in levels)
-        {
-            level.gameObject.SetActive(false);
-        }
         enemySpawner = Instantiate(
             enemySpawnerPrefab,
             Vector3.zero,
@@ -57,9 +53,6 @@ public class LevelManager : MonoBehaviour
         player.OnObjectDied -= OnPlayerDeath;
     }
 
-    // Start is called before the first frame update
-    void Start() { }
-
     public void LoadLevel(int levelIndex)
     {
         if (levelIndex > levels.Length)
@@ -69,10 +62,7 @@ public class LevelManager : MonoBehaviour
         }
         if (levelIndex == levels.Length)
         {
-            if (OnWin != null)
-            {
-                OnWin();
-            }
+            OnWin?.Invoke();
             return;
         }
         if (levelIndex == 0)
@@ -93,21 +83,19 @@ public class LevelManager : MonoBehaviour
 
         enemyKills = 0;
 
-        currentLevel?.gameObject.SetActive(false);
         currentLevelIndex = levelIndex;
-        currentLevel = levels[currentLevelIndex];
-        currentLevel.gameObject.SetActive(true);
+        SetUpMap();
         Debug.Log("Level: " + currentLevelIndex);
 
         // Create Enemy Spawner
         enemySpawner.CleanUp();
-        enemySpawner.SetUp(currentLevel, player);
+        enemySpawner.SetUp(levels[currentLevelIndex], player);
 
         if (levelIndex == 0)
         {
             startGameSound.Play();
             UIOverlay.Instance.ShowInstructions();
-            StartCoroutine(enableSpawnerAfterDelay(3));
+            StartCoroutine(EnableSpawnerAfterDelay(3));
         }
         else
         {
@@ -117,16 +105,21 @@ public class LevelManager : MonoBehaviour
         UIOverlay.Instance.StartUI();
     }
 
-    IEnumerator enableSpawnerAfterDelay(float delay)
+    IEnumerator EnableSpawnerAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
         enemySpawner.Enable();
     }
 
+    void SetUpMap()
+    {
+        mapGenerator.GenerateMap(levels[currentLevelIndex].map);
+    }
+
     public void OnEnemyDeath()
     {
         enemyKills++;
-        if (enemyKills == currentLevel.totalNumberOfEnemies)
+        if (enemyKills == levels[currentLevelIndex].totalNumberOfEnemies)
         {
             Invoke("NextLevel", 1);
         }
