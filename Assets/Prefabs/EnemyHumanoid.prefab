@@ -383,6 +383,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 18f3915ffcced3941b2f09f7ea1261c9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 664990756258178912}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 18f3915ffcced3941b2f09f7ea1261c9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1056194940181032684}
   m_SourcePrefab: {fileID: 100100000, guid: 18f3915ffcced3941b2f09f7ea1261c9, type: 3}
 --- !u!137 &2199483617418125377 stripped
 SkinnedMeshRenderer:
@@ -448,7 +451,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b307ffbd9804af048aa10710c758d65c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
+  health: 10
   totalHealth: 10
   playerTransform: {fileID: 0}
   distanceToPlayerThreshold: 5
@@ -458,8 +461,36 @@ MonoBehaviour:
   characterController: {fileID: 0}
   weaponIndex: 0
   type: 0
+  followDelay: 0.5
+  pathfinder: {fileID: 0}
   surfaceRenderer: {fileID: 2199483617418125377}
   jointsRenderer: {fileID: 6762293574516050652}
+  playerLayerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  currentState: 0
+--- !u!195 &1056194940181032684
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4794533523988891955}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!4 &5314892402186457993 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 18f3915ffcced3941b2f09f7ea1261c9, type: 3}

@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
+using UnityEditor.UIElements;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Animations;
 
 public enum EnemyType
@@ -10,6 +13,7 @@ public enum EnemyType
     hard
 }
 
+[RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(WeaponController))]
 public class Enemy : DamageableObject
 {
@@ -28,21 +32,51 @@ public class Enemy : DamageableObject
     private bool disableScheduled = false;
     private bool directionSwitchScheduled = false;
     private float gravity = -9.81f;
+    public float followDelay = 0.5f;
     private Vector3 velocity;
-
+    public NavMeshAgent pathfinder;
     public SkinnedMeshRenderer surfaceRenderer;
     public SkinnedMeshRenderer jointsRenderer;
+
+    public enum State
+    {
+        Standing,
+        Chasing,
+        Searching,
+        Idle
+    };
+
+    public LayerMask playerLayerMask;
+    public State currentState;
+    private bool hasTarget;
+    private DamageableObject targetDamageable;
 
     // Start is called before the first frame update
     public override void Start()
     {
-        movementEnabled = true;
-        playerTransform = GameObject.FindGameObjectWithTag("enemyAim").transform;
+        GameObject player = GameObject.FindGameObjectWithTag("enemyAim");
+        if (player != null)
+        {
+            hasTarget = true;
+            playerTransform = player.transform;
+            currentState = State.Searching;
+        }
         weaponController = GetComponent<WeaponController>();
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         weaponController.EquipWeapon(weaponIndex);
+        pathfinder = GetComponent<NavMeshAgent>();
+        pathfinder.speed = speed;
+
         base.Start();
+
+        StartCoroutine(FindPath());
+    }
+
+    void OnTargetDeath()
+    {
+        hasTarget = false;
+        currentState = State.Standing;
     }
 
     public void SetType(EnemyType enemyType)
@@ -79,23 +113,75 @@ public class Enemy : DamageableObject
         if (playerTransform != null)
         {
             distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
-            transform.LookAt(playerTransform);
-            if (distanceToPlayer > distanceToPlayerThreshold && movementEnabled)
+            SetState();
+            switch (currentState)
             {
-                Move();
-                animator.SetFloat("forwardSpeed", 1.5f);
+                case State.Standing:
+                    transform.LookAt(playerTransform);
+                    Aim();
+                    Shoot();
+                    animator.SetFloat("forwardSpeed", 0);
+                    break;
+                case State.Chasing:
+                    transform.LookAt(playerTransform);
+                    Aim();
+                    Shoot();
+                    animator.SetFloat("forwardSpeed", 1.5f);
+                    break;
+                case State.Searching:
+                    break;
+                case State.Idle:
+                    break;
             }
-            else
-            {
-                animator.SetFloat("forwardSpeed", 0);
-            }
-
-            Aim();
-            Shoot();
         }
         if (!characterController.isGrounded)
         {
             Fall();
+        }
+    }
+
+    void SetState()
+    {
+
+        if (!IsAlive()) {
+            currentState = State.Idle;
+            return;
+        }
+
+        bool targetInSight = false;
+        if (hasTarget)
+        {
+            if (Physics.Raycast(
+                transform.position,
+                playerTransform.position - transform.position,
+                out RaycastHit hit,
+                distanceToPlayer * 2
+            ))
+            {
+                Debug.Log(hit.transform.gameObject.layer);
+                Debug.Log(playerLayerMask);
+
+                if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Player"))
+                {
+                    Debug.Log("Target in sight");
+                    targetInSight = true;
+                }
+            }
+
+            Debug.DrawLine(transform.position, playerTransform.position, Color.red);
+        }
+
+        if (!targetInSight)
+        {
+            currentState = State.Searching;
+            return;
+        } else if (distanceToPlayer > distanceToPlayerThreshold + 0.01f)
+        {
+            currentState = State.Chasing;
+            return;
+        } else
+        {
+            currentState = State.Standing;
         }
     }
 
@@ -161,6 +247,28 @@ public class Enemy : DamageableObject
                 directionSwitchScheduled = true;
                 StartCoroutine(DelayedDirectionSwitch());
             }
+        }
+    }
+
+    IEnumerator FindPath()
+    {
+        while (hasTarget)
+        {
+            if (IsAlive())
+            {
+                if (currentState == State.Searching || currentState == State.Chasing)
+                {
+                    Vector3 directionToTarget = (
+                        playerTransform.position - transform.position
+                    ).normalized;
+                    Vector3 targetPosition =
+                        playerTransform.position - directionToTarget * distanceToPlayerThreshold;
+
+                    Debug.DrawLine(transform.position, targetPosition, Color.red);
+                    pathfinder.SetDestination(targetPosition);
+                }
+            }
+            yield return new WaitForSeconds(followDelay);
         }
     }
 
