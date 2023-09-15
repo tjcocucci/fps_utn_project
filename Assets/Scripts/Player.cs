@@ -150,7 +150,6 @@ public class Player : DamageableObject
         );
         Debug.DrawRay(ray.origin, ray.direction * shootDistance, Color.red);
         weaponController.weaponHoldTransform.LookAt(ray.GetPoint(shootDistance));
-        // Debug.DrawRay(ray2.origin, ray2.direction * shootDistance, Color.red);
 
         crosshairs.transform.position = ray.GetPoint(10);
         crosshairs.transform.LookAt(ray.GetPoint(20));

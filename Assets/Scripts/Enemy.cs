@@ -158,12 +158,8 @@ public class Enemy : DamageableObject
                 distanceToPlayer * 2
             ))
             {
-                Debug.Log(hit.transform.gameObject.layer);
-                Debug.Log(playerLayerMask);
-
                 if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Player"))
                 {
-                    Debug.Log("Target in sight");
                     targetInSight = true;
                 }
             }

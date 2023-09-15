@@ -13,16 +13,13 @@ public class MapEditor : Editor
         levelManager.currentLevelIndex = EditorGUILayout.IntField("Current Level Index", levelManager.currentLevelIndex);
         if (DrawDefaultInspector()) {
             Level level = levelManager.levels[levelManager.currentLevelIndex];
-            Debug.Log(level.map);
             if (level.map != null) {
-                Debug.Log(level.map);
                 levelManager.mapGenerator.GenerateMap(level.map);
             }
         }
         if (GUILayout.Button("Generate Map")) {
             Level level = levelManager.levels[levelManager.currentLevelIndex];
             if (level.map != null) {
-                Debug.Log(level.map.seed);
                 levelManager.mapGenerator.GenerateMap(level.map);
             }
         }
