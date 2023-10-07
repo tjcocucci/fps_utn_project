@@ -37,6 +37,7 @@ public class Player : DamageableObject
         won = false;
         Cursor.lockState = CursorLockMode.Locked; // Lock the cursor to the game window
         weaponController.EquipWeapon(0);
+        Reload();
         crosshairs = Instantiate(
             crosshairsPrefab,
             transform.position,
@@ -53,7 +54,6 @@ public class Player : DamageableObject
             Debug.Log("LevelManager is null");
         }
         OnObjectDied += OnPlayerDeath;
-
     }
 
     void OnPlayerDeath()
@@ -69,7 +69,7 @@ public class Player : DamageableObject
             Look();
             Move();
             ChangeWeapon();
-            Reload();
+            CheckReload();
             Fall();
             Jump();
             ThrowGranade();
@@ -182,6 +182,7 @@ public class Player : DamageableObject
             weaponController.EquipWeapon(1);
         }
     }
+
     void ThrowGranade()
     {
         if (Input.GetKeyDown(KeyCode.F))
@@ -195,13 +196,18 @@ public class Player : DamageableObject
         }
     }
 
-    void Reload()
+    void CheckReload()
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            int inventoryAmmo = inventory.GetAvailableAmmo(weaponIndex);
-            int remainigAmmo = weaponController.weapon.Reload(inventoryAmmo);
-            inventory.SetAvailableAmmo(weaponIndex, remainigAmmo);
+            Reload();
         }
+    }
+
+    void Reload()
+    {
+        int inventoryAmmo = inventory.GetAvailableAmmo(weaponIndex);
+        int remainigAmmo = weaponController.weapon.Reload(inventoryAmmo);
+        inventory.SetAvailableAmmo(weaponIndex, remainigAmmo);
     }
 }

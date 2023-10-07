@@ -125,7 +125,6 @@ GameObject:
   - component: {fileID: 6240702523885365226}
   - component: {fileID: 4890690516660761035}
   - component: {fileID: 7680392951982680957}
-  - component: {fileID: 4357995091311274719}
   m_Layer: 0
   m_Name: Cube (1)
   m_TagString: Untagged
@@ -198,27 +197,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &4357995091311274719
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2946148237942572072}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1.0000001}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5361541058629823795
 GameObject:
   m_ObjectHideFlags: 0
@@ -401,7 +379,6 @@ GameObject:
   - component: {fileID: 4442031084789661379}
   - component: {fileID: 1983777969280636658}
   - component: {fileID: 7176700874618470077}
-  - component: {fileID: 6278045128320533656}
   m_Layer: 0
   m_Name: Scope
   m_TagString: Untagged
@@ -476,29 +453,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &6278045128320533656
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6911857247950844366}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &7113337228170812639
 GameObject:
   m_ObjectHideFlags: 0
@@ -510,7 +464,6 @@ GameObject:
   - component: {fileID: 4720075385260954907}
   - component: {fileID: 6113453296598724352}
   - component: {fileID: 3990556761849587265}
-  - component: {fileID: 603948213895644304}
   m_Layer: 0
   m_Name: Cube (2)
   m_TagString: Untagged
@@ -583,27 +536,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &603948213895644304
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7113337228170812639}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1.0000001}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7625542743996257725
 GameObject:
   m_ObjectHideFlags: 0
@@ -615,7 +547,6 @@ GameObject:
   - component: {fileID: 754825369373027951}
   - component: {fileID: 7762813075828995114}
   - component: {fileID: 4996934114422095368}
-  - component: {fileID: 2002641361735107266}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -688,27 +619,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2002641361735107266
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7625542743996257725}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1.0000001}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7943406458248303850
 GameObject:
   m_ObjectHideFlags: 0

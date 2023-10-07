@@ -701,6 +701,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 18f3915ffcced3941b2f09f7ea1261c9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2996393776347660768}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 18f3915ffcced3941b2f09f7ea1261c9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4131255492966112471}
   m_SourcePrefab: {fileID: 100100000, guid: 18f3915ffcced3941b2f09f7ea1261c9, type: 3}
 --- !u!1 &82867283414157168 stripped
 GameObject:
@@ -726,7 +729,7 @@ MonoBehaviour:
   playerBody: {fileID: 751458982007627210}
   controller: {fileID: 901015702209017867}
   weaponController: {fileID: 111959102275659650}
-  throwableController: {fileID: 0}
+  throwableController: {fileID: 4131255492966112471}
   inventory: {fileID: 2996393776347660768}
   isAlive: 1
   weaponIndex: 0
@@ -813,10 +816,24 @@ MonoBehaviour:
   secondaryWeaponAmmo: 100
   primaryWeaponAmmoCarryCapacity: 50
   secondaryWeaponAmmoCarryCapacity: 200
-  granadeCount: 0
+  granadeCount: 4
   granadeCarryCapacity: 4
   healthPacks: 0
   healthPackCarryCapacity: 4
+--- !u!114 &4131255492966112471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 82867283414157168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9ae657487c4f224296e4926f9a44e4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponHoldTransform: {fileID: 9207583462548976730}
+  granadePrefab: {fileID: 5034713644579760219, guid: 26407f79128e96a479692908e9e2c536, type: 3}
 --- !u!4 &751458982007627210 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 18f3915ffcced3941b2f09f7ea1261c9, type: 3}
