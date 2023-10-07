@@ -11,6 +11,8 @@ public class Weapon : MonoBehaviour
     public float timeBetweenShots = 0.5f;
     private float timeForNextShot;
     public Transform bulletContarinerTransform;
+    public int ammo;
+    public int magazineSize;
 
     // Start is called before the first frame update
     public void Start()
@@ -21,7 +23,7 @@ public class Weapon : MonoBehaviour
 
     public void Shoot()
     {
-        if (Time.time > timeForNextShot)
+        if (Time.time > timeForNextShot && ammo > 0)
         {
             Bullet bullet = Instantiate(
                 bulletPrefab,
@@ -29,8 +31,24 @@ public class Weapon : MonoBehaviour
                 gunMuzzleTransform.rotation,
                 bulletContarinerTransform
             );
+            ammo--;
             bullet.damage = damage;
             timeForNextShot = Time.time + timeBetweenShots;
+        }
+    }
+    
+    public int Reload(int ammoCount)
+    {
+        int ammoToReload = magazineSize - ammo;
+        if (ammoCount < ammoToReload)
+        {
+            ammo += ammoCount;
+            return 0;
+        }
+        else
+        {
+            ammo = magazineSize;
+            return ammoCount - ammoToReload;
         }
     }
 }

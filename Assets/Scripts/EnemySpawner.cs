@@ -18,7 +18,6 @@ public class EnemySpawner : MonoBehaviour
     private List<Enemy> enemies = new List<Enemy>();
 
     private float enemySpeed;
-    private float enemyDamage;
     private float enemyHealth;
     private int enemyWeaponIndex;
     public EnemyType type;
@@ -46,7 +45,6 @@ public class EnemySpawner : MonoBehaviour
         
         enemySpeed = level.enemySpeed;
         type = level.enemyType;
-        enemyDamage = level.enemyDamage;
         enemyHealth = level.enemyHealth;
         enemyWeaponIndex = level.enemyWeaponIndex;
 
@@ -127,7 +125,6 @@ public class EnemySpawner : MonoBehaviour
     {
         enemy.SetType(type);
         enemy.speed = enemySpeed;
-        enemy.damage = enemyDamage;
         enemy.totalHealth = enemyHealth;
         enemy.weaponIndex = enemyWeaponIndex;
         enemy.playerTransform = playerTransform;

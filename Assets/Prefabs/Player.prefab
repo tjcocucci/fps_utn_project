@@ -1,5 +1,99 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &24123844239960173
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1648096340862229071}
+  - component: {fileID: 8496766920343426031}
+  m_Layer: 0
+  m_Name: Spot Light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1648096340862229071
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 24123844239960173}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.16999996, z: 0.29799986}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3014902952412781308}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!108 &8496766920343426031
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 24123844239960173}
+  m_Enabled: 1
+  serializedVersion: 10
+  m_Type: 0
+  m_Shape: 0
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 8
+  m_Range: 20
+  m_SpotAngle: 35
+  m_InnerSpotAngle: 3
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
 --- !u!1 &1078687068805815476
 GameObject:
   m_ObjectHideFlags: 0
@@ -145,6 +239,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6894342676243092928}
+  - {fileID: 1648096340862229071}
   m_Father: {fileID: 751458982007627210}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -603,6 +698,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 18f3915ffcced3941b2f09f7ea1261c9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8698507973301499544}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 18f3915ffcced3941b2f09f7ea1261c9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2996393776347660768}
   m_SourcePrefab: {fileID: 100100000, guid: 18f3915ffcced3941b2f09f7ea1261c9, type: 3}
 --- !u!1 &82867283414157168 stripped
 GameObject:
@@ -628,6 +726,8 @@ MonoBehaviour:
   playerBody: {fileID: 751458982007627210}
   controller: {fileID: 901015702209017867}
   weaponController: {fileID: 111959102275659650}
+  throwableController: {fileID: 0}
+  inventory: {fileID: 2996393776347660768}
   isAlive: 1
   weaponIndex: 0
   crosshairsPrefab: {fileID: -2390759940234915117, guid: cdc10d0fb9156414ca0a86e51933c097, type: 3}
@@ -671,6 +771,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponList:
   - {fileID: 3123295647542885958, guid: cb0dbe1f0b678a24dbbf6db069c79645, type: 3}
+  - {fileID: 3123295647542885958, guid: f06b91d8424a1634c829c98f84443a92, type: 3}
   weapon: {fileID: 0}
   weaponHoldTransform: {fileID: 9207583462548976730}
 --- !u!136 &8698507973301499544
@@ -696,6 +797,26 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &2996393776347660768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 82867283414157168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce00af1bddac1548bd418402ba50787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  primaryWeaponAmmo: 20
+  secondaryWeaponAmmo: 100
+  primaryWeaponAmmoCarryCapacity: 50
+  secondaryWeaponAmmoCarryCapacity: 200
+  granadeCount: 0
+  granadeCarryCapacity: 4
+  healthPacks: 0
+  healthPackCarryCapacity: 4
 --- !u!4 &751458982007627210 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 18f3915ffcced3941b2f09f7ea1261c9, type: 3}

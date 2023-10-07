@@ -436,7 +436,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponList:
-  - {fileID: 3123295647542885958, guid: cb0dbe1f0b678a24dbbf6db069c79645, type: 3}
+  - {fileID: 3123295647542885958, guid: 333ccd3a55f8b6741b0b896ce08d3f65, type: 3}
+  - {fileID: 3123295647542885958, guid: 290143f6f49bd274b8fd9a13cc8052f5, type: 3}
   weapon: {fileID: 0}
   weaponHoldTransform: {fileID: 1041766109484922585}
 --- !u!114 &664990756258178912
@@ -456,7 +457,6 @@ MonoBehaviour:
   playerTransform: {fileID: 0}
   distanceToPlayerThreshold: 5
   speed: 2
-  damage: 10
   weaponController: {fileID: 0}
   characterController: {fileID: 0}
   weaponIndex: 0

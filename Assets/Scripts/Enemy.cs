@@ -21,7 +21,6 @@ public class Enemy : DamageableObject
     private float distanceToPlayer;
     public float distanceToPlayerThreshold = 5.0f;
     public float speed = 2;
-    public float damage = 10;
     public WeaponController weaponController;
     public CharacterController characterController;
     private Animator animator;
@@ -114,6 +113,7 @@ public class Enemy : DamageableObject
         {
             distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
             SetState();
+            Reload();
             switch (currentState)
             {
                 case State.Standing:
@@ -271,5 +271,14 @@ public class Enemy : DamageableObject
     public void Shoot()
     {
         weaponController.weapon.Shoot();
+    }
+
+    void Reload ()
+    { 
+        if (weaponController.weapon.ammo <= 0)
+        {
+            weaponController.weapon.Reload(weaponController.weapon.magazineSize);
+        }
+
     }
 }

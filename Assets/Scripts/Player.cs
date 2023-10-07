@@ -12,6 +12,8 @@ public class Player : DamageableObject
     private Vector3 velocity;
     private Vector3 moveCurrent;
     public WeaponController weaponController;
+    public ThrowableController throwableController;
+    public PlayerInventory inventory;
 
     private float gravity = -9.81f;
     private float jumpForce = 3.0f;
@@ -51,6 +53,7 @@ public class Player : DamageableObject
             Debug.Log("LevelManager is null");
         }
         OnObjectDied += OnPlayerDeath;
+
     }
 
     void OnPlayerDeath()
@@ -66,6 +69,7 @@ public class Player : DamageableObject
             Look();
             Move();
             ChangeWeapon();
+            Reload();
             Fall();
             Jump();
             Aim();
@@ -158,7 +162,7 @@ public class Player : DamageableObject
 
     void Shoot(Ray ray)
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0))
         {
             weaponController.weapon.Shoot();
         }
@@ -175,6 +179,28 @@ public class Player : DamageableObject
         {
             weaponIndex = 1;
             weaponController.EquipWeapon(1);
+        }
+    }
+    void ThrowGranade()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            int availableGranades = inventory.granadeCount;
+            if (availableGranades > 0)
+            {
+                inventory.granadeCount--;
+                throwableController.Throw();
+            }
+        }
+    }
+
+    void Reload()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            int inventoryAmmo = inventory.GetAvailableAmmo(weaponIndex);
+            int remainigAmmo = weaponController.weapon.Reload(inventoryAmmo);
+            inventory.SetAvailableAmmo(weaponIndex, remainigAmmo);
         }
     }
 }

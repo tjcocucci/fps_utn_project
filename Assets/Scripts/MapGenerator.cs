@@ -422,7 +422,7 @@ public class Map
     public Color backgroundColor;
 
     [Min(1)]
-    public float tileSize;
+    public float tileSize = 1;
 
     [Range(0, 1)]
     public float wallThicknessPercent;

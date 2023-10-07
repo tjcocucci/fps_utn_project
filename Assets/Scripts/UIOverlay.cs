@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 [RequireComponent(typeof(AudioSource))]
 public class UIOverlay : MonoBehaviour
@@ -12,6 +13,8 @@ public class UIOverlay : MonoBehaviour
     public Banner banner;
     private float healthPercent;
     public TMPro.TextMeshProUGUI UIText;
+    public TMPro.TextMeshProUGUI InventoryText;
+
     private LevelManager levelManager;
     private bool pauseUpdates;
     public AudioClip winSound;
@@ -62,18 +65,27 @@ public class UIOverlay : MonoBehaviour
         {
             healthPercent = 100 * player.health / player.totalHealth;
             UpdateText();
+            UpdateInventoryText();
         }
     }
 
     void UpdateText()
     {
+        Weapon weapon = player.weaponController.weapon;
+        int ammo = weapon.ammo;
+        Debug.Log("ammo: " + ammo);
+        int magazineSize = weapon.magazineSize;
         UIText.text =
             "Health: "
             + healthPercent.ToString("0")
             + "%"
             + "\n"
             + "Weapon: "
-            + player.weaponController.weaponList[player.weaponIndex].weaponName
+            + weapon.weaponName
+            + "     "
+            + weapon.ammo
+            + " / "
+            + magazineSize
             + "\n"
             + "Level: "
             + (levelManager.currentLevelIndex + 1)
@@ -83,6 +95,23 @@ public class UIOverlay : MonoBehaviour
             + "\n"
             + "Time: "
             + Time.time.ToString("0.00")
+            + "\n";
+    }
+
+    public void UpdateInventoryText()
+    {
+        InventoryText.text =
+            "Primary Weapon Ammo: "
+            + player.inventory.primaryWeaponAmmo
+            + "\n"
+            + "Secondary Weapon Ammo: "
+            + player.inventory.secondaryWeaponAmmo
+            + "\n"
+            + "Grenades: "
+            + player.inventory.granadeCount
+            + "\n"
+            + "Health Packs: "
+            + player.inventory.healthPacks
             + "\n";
     }
 

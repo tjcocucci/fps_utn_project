@@ -9,7 +9,6 @@ public class Level
     public float timeBetweenSpawns;
     public EnemyType enemyType;
     public float enemySpeed;
-    public float enemyDamage;
     public float enemyHealth;
     public int enemyWeaponIndex;
     public float minSpawnDistanceToPlayer;
