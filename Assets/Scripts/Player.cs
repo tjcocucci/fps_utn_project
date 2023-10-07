@@ -72,6 +72,7 @@ public class Player : DamageableObject
             Reload();
             Fall();
             Jump();
+            ThrowGranade();
             Aim();
         }
     }

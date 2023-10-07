@@ -3,7 +3,9 @@ guid: a9ae657487c4f224296e4926f9a44e4b
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - weaponHoldTransform: {instanceID: 0}
+  - throwable: {fileID: 5034713644579760219, guid: 26407f79128e96a479692908e9e2c536, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
