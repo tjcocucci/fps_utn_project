@@ -731,6 +731,7 @@ MonoBehaviour:
   weaponController: {fileID: 111959102275659650}
   throwableController: {fileID: 4131255492966112471}
   inventory: {fileID: 2996393776347660768}
+  pickUpRadius: 1.5
   isAlive: 1
   weaponIndex: 0
   crosshairsPrefab: {fileID: -2390759940234915117, guid: cdc10d0fb9156414ca0a86e51933c097, type: 3}
