@@ -11,6 +11,7 @@ public class LevelManager : MonoBehaviour
     public AudioSource startGameSound;
     public Transform gameContainer;
     public MapGenerator mapGenerator;
+    public List<Dropable> dropables;
 
     [HideInInspector]
     public Player player;
@@ -82,6 +83,7 @@ public class LevelManager : MonoBehaviour
         }
 
         enemyKills = 0;
+        ResetDropables();
 
         currentLevelIndex = levelIndex;
         SetUpMap();
@@ -129,4 +131,19 @@ public class LevelManager : MonoBehaviour
     {
         LoadLevel(currentLevelIndex + 1);
     }
+
+    public void RegisterDropable(Dropable dropable)
+    {
+        dropables.Add(dropable);
+    }
+
+    public void ResetDropables()
+    {
+        foreach (Dropable dropable in dropables)
+        {
+            Destroy(dropable.gameObject);
+        }
+        dropables.Clear();
+    }
+    
 }

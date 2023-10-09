@@ -73,7 +73,6 @@ public class UIOverlay : MonoBehaviour
     {
         Weapon weapon = player.weaponController.weapon;
         int ammo = weapon.ammo;
-        Debug.Log("ammo: " + ammo);
         int magazineSize = weapon.magazineSize;
         UIText.text =
             "Health: "

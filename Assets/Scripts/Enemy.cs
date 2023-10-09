@@ -36,6 +36,7 @@ public class Enemy : DamageableObject
     public NavMeshAgent pathfinder;
     public SkinnedMeshRenderer surfaceRenderer;
     public SkinnedMeshRenderer jointsRenderer;
+    public Dropable dropablePrefab;
 
     public enum State
     {
@@ -103,6 +104,7 @@ public class Enemy : DamageableObject
         base.TakeDamage(damage);
         if (!IsAlive())
         {
+            Drop();
             Destroy(gameObject);
         }
     }
@@ -281,4 +283,11 @@ public class Enemy : DamageableObject
         }
 
     }
+
+    void Drop ()
+    {
+        Dropable dropable = Instantiate(dropablePrefab, transform.position + Vector3.up, Quaternion.identity);
+        dropable.SetRandomType();
+    }
+
 }

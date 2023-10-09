@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : DamageableObject
@@ -14,6 +15,7 @@ public class Player : DamageableObject
     public WeaponController weaponController;
     public ThrowableController throwableController;
     public PlayerInventory inventory;
+    public float pickUpRadius = 2.0f;
 
     private float gravity = -9.81f;
     private float jumpForce = 3.0f;
@@ -70,6 +72,7 @@ public class Player : DamageableObject
             Move();
             ChangeWeapon();
             CheckReload();
+            CheckPickUp();
             Fall();
             Jump();
             ThrowGranade();
@@ -209,5 +212,43 @@ public class Player : DamageableObject
         int inventoryAmmo = inventory.GetAvailableAmmo(weaponIndex);
         int remainigAmmo = weaponController.weapon.Reload(inventoryAmmo);
         inventory.SetAvailableAmmo(weaponIndex, remainigAmmo);
+    }
+
+    void CheckPickUp()
+    {
+        List<Dropable> dropables = LevelManager.Instance.dropables;
+        for (int i = dropables.Count - 1; i >= 0; i--)
+        {
+            Dropable dropable = dropables[i];
+            if (Vector3.Distance(transform.position, dropable.transform.position) < pickUpRadius)
+            {
+                Debug.Log("Picking up dropable");
+                PickUpDropable(dropable);
+                LevelManager.Instance.dropables.RemoveAt(i);
+                Destroy(dropable.gameObject);
+            }
+        }
+    }
+
+    void PickUpDropable(Dropable dropable)
+    {
+        if (dropable.type == Dropable.DropableType.Health)
+        {
+            health += 20;
+            Debug.Log("Picked up health");
+            Debug.Log("Health: " + health);
+            if (health > totalHealth)
+            {
+                health = totalHealth;
+            }
+        }
+        else if (dropable.type == Dropable.DropableType.PrimaryWeaponAmmo)
+        {
+            inventory.primaryWeaponAmmo += 30;
+        }
+        else if (dropable.type == Dropable.DropableType.SecondaryWeaponAmmo)
+        {
+            inventory.secondaryWeaponAmmo += 30;
+        }
     }
 }
