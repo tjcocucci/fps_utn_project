@@ -219,6 +219,7 @@ GameObject:
   - component: {fileID: 3014902952412781308}
   - component: {fileID: 4649521134145596694}
   - component: {fileID: 2688234238528207312}
+  - component: {fileID: 4862033453068714297}
   m_Layer: 3
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -302,6 +303,33 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4976095483267519444}
   m_Enabled: 1
+--- !u!114 &4862033453068714297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4976095483267519444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43c623a05fc5442fcba27a128ec2559a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tags: Obstacle
+  layerMsk:
+    serializedVersion: 2
+    m_Bits: 128
+  occludeeLayer: 0
+  samples: 300
+  raysFov: 29
+  preCullCheck: 0
+  viewDistance: 1000
+  hideDelay: 100
+  realtimeShadows: 0
+  lod1Distance: 0
+  lod2Distance: 0
+  lightProbes: 0
+  probeRadius: 0
 --- !u!1 &8800635054983535132
 GameObject:
   m_ObjectHideFlags: 0
