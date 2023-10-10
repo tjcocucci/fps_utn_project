@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
 public class Dropable : MonoBehaviour
 {
     public enum DropableType
@@ -14,11 +13,14 @@ public class Dropable : MonoBehaviour
 
     public DropableType type;
 
+    public GameObject healthPrefab;
+    public GameObject primaryWeaponAmmoPrefab;
+    public GameObject secondaryWeaponAmmoPrefab;
+
     // Start is called before the first frame update
     void Start()
     {
         LevelManager.Instance.RegisterDropable(this);
-        Debug.Log("Dropable registered");
     }
 
     void SetType(DropableType type)
@@ -26,15 +28,25 @@ public class Dropable : MonoBehaviour
         this.type = type;
         if (type == DropableType.Health)
         {
-            GetComponent<MeshRenderer>().material.color = Color.green;
+            Instantiate(healthPrefab, transform.position, Quaternion.identity, transform);
         }
         else if (type == DropableType.PrimaryWeaponAmmo)
         {
-            GetComponent<MeshRenderer>().material.color = Color.red;
+            Instantiate(
+                primaryWeaponAmmoPrefab,
+                transform.position,
+                Quaternion.identity,
+                transform
+            );
         }
         else if (type == DropableType.SecondaryWeaponAmmo)
         {
-            GetComponent<MeshRenderer>().material.color = Color.blue;
+            Instantiate(
+                secondaryWeaponAmmoPrefab,
+                transform.position,
+                Quaternion.identity,
+                transform
+            );
         }
     }
 

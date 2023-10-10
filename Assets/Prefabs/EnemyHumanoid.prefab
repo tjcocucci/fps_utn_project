@@ -465,7 +465,7 @@ MonoBehaviour:
   pathfinder: {fileID: 0}
   surfaceRenderer: {fileID: 2199483617418125377}
   jointsRenderer: {fileID: 6762293574516050652}
-  dropablePrefab: {fileID: 5513896925244034988, guid: 47d5b406d0c084f468e89b7143d7eac9, type: 3}
+  dropablePrefab: {fileID: 5253099892018505099, guid: 388f1f078913dec41b77ea09d99ddf55, type: 3}
   playerLayerMask:
     serializedVersion: 2
     m_Bits: 8
