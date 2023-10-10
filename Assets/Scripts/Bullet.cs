@@ -15,13 +15,24 @@ public class Bullet : MonoBehaviour
     public AudioSource bulletObstacleHitSound;
     public AudioSource bulletPlayerOrEnemyHitSound;
     public AudioSource bulletShootSound;
+    public BulletPool bulletPool;
+
+    void Awake()
+    {
+        bulletPool = GameObject.FindObjectOfType<BulletPool>();
+    }
 
     // Start is called before the first frame update
-    void Awake()
+    void OnEnable()
     {
         bulletShootSound.Play();
         rb = GetComponent<Rigidbody>();
-        Destroy(gameObject, timeToDestroy);
+        Invoke("Disable", timeToDestroy);
+    }
+
+    void Disable()
+    {
+        gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -35,12 +46,11 @@ public class Bullet : MonoBehaviour
     void CheckCollisions(float distance)
     {
         Ray ray = new Ray(transform.position, transform.forward);
-        RaycastHit hit;
 
         if ( // Enemy or player collision
             Physics.Raycast(
                 ray,
-                out hit,
+                out RaycastHit hit,
                 distance + offset,
                 enemyCollisionMask | playerCollisionMask,
                 QueryTriggerInteraction.Collide
@@ -52,12 +62,11 @@ public class Bullet : MonoBehaviour
             {
                 damageableObject.TakeDamage(damage);
             }
-            Destroy(gameObject);
+            bulletPool.ReturnBulletToPool(this);
             Debug.Log("Hit " + hit.collider.gameObject.name);
         }
 
         if ( // Obstacle collision
-
             Physics.Raycast(
                 ray,
                 out hit,
@@ -67,7 +76,7 @@ public class Bullet : MonoBehaviour
             )
         )
         {
-            Destroy(gameObject);
+            bulletPool.ReturnBulletToPool(this);
         }
     }
 }
