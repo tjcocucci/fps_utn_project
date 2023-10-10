@@ -65,6 +65,7 @@ public class Enemy : DamageableObject
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         weaponController.EquipWeapon(weaponIndex);
+        weaponController.weapon.ammo = weaponController.weapon.magazineSize * 15;
         pathfinder = GetComponent<NavMeshAgent>();
         pathfinder.speed = speed;
 
@@ -144,8 +145,8 @@ public class Enemy : DamageableObject
 
     void SetState()
     {
-
-        if (!IsAlive()) {
+        if (!IsAlive())
+        {
             currentState = State.Idle;
             return;
         }
@@ -153,12 +154,14 @@ public class Enemy : DamageableObject
         bool targetInSight = false;
         if (hasTarget)
         {
-            if (Physics.Raycast(
-                transform.position,
-                playerTransform.position - transform.position,
-                out RaycastHit hit,
-                distanceToPlayer * 2
-            ))
+            if (
+                Physics.Raycast(
+                    transform.position,
+                    playerTransform.position - transform.position,
+                    out RaycastHit hit,
+                    distanceToPlayer * 2
+                )
+            )
             {
                 if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Player"))
                 {
@@ -166,18 +169,24 @@ public class Enemy : DamageableObject
                 }
             }
 
-            Debug.DrawLine(transform.position, playerTransform.position, Color.red);
+            Debug.DrawLine(
+                weaponController.weaponHoldTransform.position,
+                playerTransform.position,
+                Color.red
+            );
         }
 
         if (!targetInSight)
         {
             currentState = State.Searching;
             return;
-        } else if (distanceToPlayer > distanceToPlayerThreshold + 0.01f)
+        }
+        else if (distanceToPlayer > distanceToPlayerThreshold + 0.01f)
         {
             currentState = State.Chasing;
             return;
-        } else
+        }
+        else
         {
             currentState = State.Standing;
         }
@@ -262,6 +271,7 @@ public class Enemy : DamageableObject
                     Vector3 targetPosition =
                         playerTransform.position - directionToTarget * distanceToPlayerThreshold;
 
+                    targetPosition += Vector3.down * 0.2f;
                     Debug.DrawLine(transform.position, targetPosition, Color.red);
                     pathfinder.SetDestination(targetPosition);
                 }
@@ -275,19 +285,17 @@ public class Enemy : DamageableObject
         weaponController.weapon.Shoot();
     }
 
-    void Reload ()
-    { 
+    void Reload()
+    {
         if (weaponController.weapon.ammo <= 0)
         {
             weaponController.weapon.Reload(weaponController.weapon.magazineSize);
         }
-
     }
 
-    void Drop ()
+    void Drop()
     {
-        Dropable dropable = Instantiate(dropablePrefab, transform.position + Vector3.up, Quaternion.identity);
+        Dropable dropable = Instantiate(dropablePrefab, transform.position, Quaternion.identity);
         dropable.SetRandomType();
     }
-
 }

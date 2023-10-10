@@ -94,7 +94,6 @@ GameObject:
   - component: {fileID: 335251842306566401}
   - component: {fileID: 7184397919646723132}
   - component: {fileID: 4975572772353467688}
-  - component: {fileID: 5985622407246257349}
   m_Layer: 0
   m_Name: chest_01_top L 3
   m_TagString: Untagged
@@ -167,27 +166,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5985622407246257349
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1147481219743208366}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.38556975, y: 0.23633604, z: 0.15216501}
-  m_Center: {x: 0.09639219, y: -0.11808146, z: 0.077455096}
 --- !u!1 &1355913313574252412
 GameObject:
   m_ObjectHideFlags: 0
@@ -199,8 +177,6 @@ GameObject:
   - component: {fileID: 3593145968933287821}
   - component: {fileID: 8592802311052161298}
   - component: {fileID: 6040488075249616440}
-  - component: {fileID: 3082029265282271444}
-  - component: {fileID: 7734398746440220764}
   m_Layer: 0
   m_Name: chest_01_bottom L 3
   m_TagString: Untagged
@@ -276,54 +252,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3082029265282271444
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1355913313574252412}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.312546, y: 0.23358108, z: 0.21522705}
-  m_Center: {x: -0.00071499497, y: -0.000000007450581, z: 0.10757653}
---- !u!54 &7734398746440220764
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1355913313574252412}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 122
-  m_CollisionDetection: 0
 --- !u!1 &1963145638573668547
 GameObject:
   m_ObjectHideFlags: 0
@@ -335,8 +263,6 @@ GameObject:
   - component: {fileID: 2899807994391345377}
   - component: {fileID: 1253726693183549241}
   - component: {fileID: 6010557779997215630}
-  - component: {fileID: 48875668152550269}
-  - component: {fileID: 4467651140555581523}
   m_Layer: 0
   m_Name: chest_01_bottom001
   m_TagString: Untagged
@@ -412,54 +338,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &48875668152550269
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1963145638573668547}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.31423402, y: 0.23599204, z: 0.21660703}
-  m_Center: {x: -0.00071499497, y: 1.538389e-15, z: 0.10825452}
---- !u!54 &4467651140555581523
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1963145638573668547}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 122
-  m_CollisionDetection: 0
 --- !u!1 &3405561428441486829
 GameObject:
   m_ObjectHideFlags: 0
@@ -469,7 +347,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3166520715325830199}
-  - component: {fileID: 2405037215876827700}
   m_Layer: 0
   m_Name: TreasureChest_3(Clone)
   m_TagString: Untagged
@@ -493,27 +370,6 @@ Transform:
   m_Father: {fileID: 2090301769868534368}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &2405037215876827700
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3405561428441486829}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 4d5d226ba50a00149ab64155d47c648d, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4899878925805334400
 GameObject:
   m_ObjectHideFlags: 0
@@ -775,7 +631,6 @@ GameObject:
   - component: {fileID: 5191181360586706405}
   - component: {fileID: 4362149789632712997}
   - component: {fileID: 981052227676754795}
-  - component: {fileID: 591272203453005805}
   m_Layer: 0
   m_Name: chest_01_top001
   m_TagString: Untagged
@@ -848,27 +703,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &591272203453005805
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6157164458455200399}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.38556975, y: 0.23633604, z: 0.15544203}
-  m_Center: {x: 0.09639219, y: -0.11808146, z: 0.07771559}
 --- !u!1 &7351692897465705754
 GameObject:
   m_ObjectHideFlags: 0
@@ -878,7 +712,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6082356181750741302}
-  - component: {fileID: 7712864569243404990}
   m_Layer: 0
   m_Name: TreasureChest_0(Clone)
   m_TagString: Untagged
@@ -902,27 +735,6 @@ Transform:
   m_Father: {fileID: 2090301769868534368}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &7712864569243404990
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7351692897465705754}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: b48e647b25cdea24e83bbf62473dedfd, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7803800776025598341
 GameObject:
   m_ObjectHideFlags: 0

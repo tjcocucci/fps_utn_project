@@ -73,6 +73,7 @@ public class Player : DamageableObject
             ChangeWeapon();
             CheckReload();
             CheckPickUp();
+            UseHealthPack();
             Fall();
             Jump();
             ThrowGranade();
@@ -223,32 +224,57 @@ public class Player : DamageableObject
             if (Vector3.Distance(transform.position, dropable.transform.position) < pickUpRadius)
             {
                 Debug.Log("Picking up dropable");
-                PickUpDropable(dropable);
-                LevelManager.Instance.dropables.RemoveAt(i);
-                Destroy(dropable.gameObject);
+                if (PickUpDropable(dropable))
+                {
+                    LevelManager.Instance.dropables.RemoveAt(i);
+                    Destroy(dropable.gameObject);
+                }
             }
         }
     }
 
-    void PickUpDropable(Dropable dropable)
+    void UseHealthPack()
+    {
+        if (Input.GetKeyDown(KeyCode.E) && health < totalHealth)
+        {
+            if (inventory.healthPacks > 0)
+            {
+                inventory.healthPacks--;
+                health += 20;
+                if (health > totalHealth)
+                {
+                    health = totalHealth;
+                }
+            }
+        }
+    }
+
+    bool PickUpDropable(Dropable dropable)
     {
         if (dropable.type == Dropable.DropableType.Health)
         {
-            health += 20;
-            Debug.Log("Picked up health");
-            Debug.Log("Health: " + health);
-            if (health > totalHealth)
+            if (inventory.healthPacks < inventory.healthPackCarryCapacity)
             {
-                health = totalHealth;
+                inventory.healthPacks++;
+                return true;
             }
         }
         else if (dropable.type == Dropable.DropableType.PrimaryWeaponAmmo)
         {
-            inventory.primaryWeaponAmmo += 30;
+            if (inventory.primaryWeaponAmmo < inventory.primaryWeaponAmmoCarryCapacity)
+            {
+                inventory.primaryWeaponAmmo += 30;
+                return true;
+            }
         }
         else if (dropable.type == Dropable.DropableType.SecondaryWeaponAmmo)
         {
-            inventory.secondaryWeaponAmmo += 30;
+            if (inventory.secondaryWeaponAmmo < inventory.secondaryWeaponAmmoCarryCapacity)
+            {
+                inventory.secondaryWeaponAmmo += 30;
+                return true;
+            }
         }
+        return false;
     }
 }

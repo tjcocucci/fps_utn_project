@@ -44,7 +44,7 @@ public class IOCcam : MonoBehaviour {
 		if(this.GetComponent<SphereCollider>() == null)
 		{
 			var coll = gameObject.AddComponent<SphereCollider>();
-			coll.radius = 1f;
+			coll.radius = 0.1f;
 			coll.isTrigger = true;
 		}
 
